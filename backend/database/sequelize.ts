@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize'
 
-const PORT = Number(process.env.PORT)
+const PORT = Number(process.env.DB_PORT)
 const URL = process.env.DB_URL
 const USER = process.env.DB_USER
 const PASS = process.env.DB_PASS
