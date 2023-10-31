@@ -1,4 +1,5 @@
 import { Request, Response } from 'express'
+import { Messages } from '../models/users.model'
 
 export const createMessage = (req: Request, res: Response) => {
   const { user, message } = req.body

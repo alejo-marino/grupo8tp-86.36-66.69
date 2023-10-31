@@ -1,6 +1,6 @@
-import express, { NextFunction, Request, Response } from 'express'
-import { sequelize } from '../database/sequelize'
 import cors from 'cors'
+import express, { Request, Response } from 'express'
+import { sequelize } from '../database/sequelize'
 import { serverRoutes } from '../routes/serverRoutes'
 import { Route } from '../interfaces/server'
 
@@ -33,7 +33,7 @@ export default class Server {
 
     app.use(
       cors({
-        origin: function (origin: string, callback: Function) {
+        origin: function (origin: any, callback: Function) {
           if (!origin) return callback(null, true)
 
           if (allowedOrigins.indexOf(origin) === -1) {
@@ -66,16 +66,5 @@ export default class Server {
     this.app.use((_: Request, res: Response) => {
       res.status(404).send({ ok: false, msg: 'WebService not found.' })
     })
-  }
-
-  connectWithDatabase() {
-    sequelize
-      .authenticate()
-      .then(async () => {
-        process.env.TZ = 'America/Argentina/Buenos_Aires'
-      })
-      .catch((err) => {
-        console.error('Unable to connect to the database: ', err)
-      })
   }
 }
