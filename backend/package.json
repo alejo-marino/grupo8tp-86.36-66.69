@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Trabajo Práctico - Criptografía y seguridad informática",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "pretty": "prettier --write \"./**/*.{js,jsx,json,ts,html,css,scss}\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Grupo 8",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "sequelize": "^6.33.0"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.0.3"
+  }
+}
