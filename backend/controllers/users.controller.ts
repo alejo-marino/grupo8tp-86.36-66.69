@@ -8,7 +8,7 @@ export const createMessage = async (req: Request, res: Response) => {
   try {
     const createdMessage = await Messages.create({ user, message })
     if (!createdMessage) return res.status(500).json({ ok: false, msg: 'Error while creating message.' })
-    
+
     res.status(201).json({ ok: true, msg: 'Message created' })
   } catch (error) {
     console.error(error)
@@ -23,7 +23,7 @@ export const getMessage = async (req: Request, res: Response) => {
   try {
     const data = await Messages.findByPk(id)
     if (!data) return res.status(404).json({ ok: false, msg: 'Message not found.' })
-    
+
     res.status(200).json({ ok: true, msg: 'Message found', data })
   } catch (error) {
     console.error(error)
@@ -33,10 +33,9 @@ export const getMessage = async (req: Request, res: Response) => {
 
 export const getMessages = async (req: Request, res: Response) => {
   try {
-
     const data = await Messages.findAll()
     if (!data) return res.status(404).json({ ok: false, msg: 'Messages not found.' })
-    
+
     return res.status(200).json({ ok: true, msg: 'Messages found', data })
   } catch (error) {
     console.error(error)
