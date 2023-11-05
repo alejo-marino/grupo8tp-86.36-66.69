@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 function Message({ message }) {
   return (
@@ -6,7 +6,7 @@ function Message({ message }) {
       <p>{message.text}</p>
       <p className="message-author">by {message.author}</p>
     </div>
-  );
+  )
 }
 
-export default Message;
+export default Message
