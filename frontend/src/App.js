@@ -1,34 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import MessageList from './components/MessageList'
 import MessageForm from './components/MessageForm'
+import { getMessages } from './services/messages'
 import './styles.css'
-
-const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 function App() {
   const [messages, setMessages] = useState([])
 
   useEffect(() => {
-    // Fetches the list of persisted messages from the backend when the component mounts
-    fetchMessages();
-  }, []);
+    getMessages()
+      .then((data) => {
+        if (data) setMessages(data)
+      })
+      .catch((error) => console.error('Error fetching messages: ', error))
+  }, [])
 
   const addMessage = (newMessage) => {
     setMessages([...messages, newMessage])
   }
-
-  const fetchMessages = () => {
-    fetch(backendUrl + `/messages`)
-      .then((response) => console.log(response.json()))
-      .then((data) => {
-        if (data) { // If GET request retrieves no messages, list shouldn't be set
-          setMessages(data); // Update the state with the retrieved messages
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching messages:', error);
-      });
-  };
 
   return (
     <div className="App">
