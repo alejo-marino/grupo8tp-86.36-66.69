@@ -10,13 +10,13 @@ function App() {
   useEffect(() => {
     getMessages()
       .then((res) => {
-        if (res.data) setMessages(res.data)
+        if (res.data) setMessages(res.data.reverse())
       })
       .catch((error) => console.error('Error fetching messages: ', error))
   }, [])
 
   const addMessage = (newMessage) => {
-    setMessages([...messages, newMessage])
+    setMessages([newMessage, ...messages]);
   }
 
   return (

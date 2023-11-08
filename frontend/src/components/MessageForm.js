@@ -26,14 +26,10 @@ function MessageForm({ addMessage }) {
         .then((response) => {
           if (!response) throw new Error('No response received')
           console.log("RES: ", response)
-          const serverResponse = response.json()
-          console.log(serverResponse)
         })
-        .then((data) => {
-          console.log(data) // probably shouldn't receive anything other than "Message successfully submitted"
-
+        .then(() => {
           // Update frontend
-          addMessage({ author: formData.username, text: formData.text });
+          addMessage({ username: formData.username, content: formData.text });
           setFormData({ username: '', text: '' });
         })
         .catch((error) => {
