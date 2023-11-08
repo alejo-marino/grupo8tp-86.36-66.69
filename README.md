@@ -19,3 +19,12 @@ $ npm i
 $ tsc
 $ node build
 ```
+
+## Frontend
+
+ Para correr la versión de desarrollo ejecutar el siguiente comando en la carpeta `frontend`:
+
+```bash
+$ npm i
+$ npm start
+```

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 function MessageForm({ addMessage }) {
   const [formData, setFormData] = useState({ username: '', text: '' })
 
@@ -13,13 +15,37 @@ function MessageForm({ addMessage }) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
     // Check if both username and text fields are filled before submitting
     if (formData.username && formData.text) {
-      addMessage({ author: formData.username, text: formData.text })
-      setFormData({ username: '', text: '' })
+    const postData = {
+      user: formData.username,
+      message: formData.text,
+    };
+    
+    // Send a POST request to the backend
+    fetch(backendUrl + `/messages`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(postData),
+    })
+      .then((response) => {
+        const serverResponse = response.json();
+        console.log(serverResponse);
+      })
+      .then((data) => {
+        console.log(data);  // probably shouldn't receive anything other than "Message submitted"
+
+        // Update frontend
+        //addMessage({ author: formData.username, text: formData.text });
+        //setFormData({ username: '', text: '' });
+      })
+      .catch((error) => {
+        console.error('Error sending the POST request:', error);
+      });
     } else {
-      alert('Please enter both username and message.')
+        alert('Please enter both username and message.')
     }
   }
 
