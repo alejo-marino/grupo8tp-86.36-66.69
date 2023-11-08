@@ -7,7 +7,7 @@ if (!DB_URL) throw new Error('Missing database credentials')
 
 export const sequelize = new Sequelize(DB_URL, {
   dialect: 'postgres',
-  define: { freezeTableName: true },
+  define: { freezeTableName: true, timestamps: false },
   pool: {
     max: 20,
     min: 0,
