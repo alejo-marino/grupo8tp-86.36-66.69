@@ -8,7 +8,7 @@ export const Messages = sequelize.define<IMessage>('messages', {
     autoIncrement: true,
     primaryKey: true,
   },
-  Username: {
+  username: {
     type: Sequelize.STRING,
     allowNull: false,
   },
