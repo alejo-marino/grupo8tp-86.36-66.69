@@ -9,8 +9,8 @@ function App() {
 
   useEffect(() => {
     getMessages()
-      .then((data) => {
-        if (data) setMessages(data)
+      .then((res) => {
+        if (res.data) setMessages(res.data)
       })
       .catch((error) => console.error('Error fetching messages: ', error))
   }, [])

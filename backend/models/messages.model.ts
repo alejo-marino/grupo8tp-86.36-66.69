@@ -3,7 +3,7 @@ import * as Sequelize from 'sequelize'
 import { sequelize } from '../database/sequelize'
 
 export const Messages = sequelize.define<IMessage>('messages', {
-  ID: {
+  id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     primaryKey: true,
@@ -12,7 +12,7 @@ export const Messages = sequelize.define<IMessage>('messages', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  Content: {
+  content: {
     type: Sequelize.STRING,
     allowNull: false,
   },

@@ -1,16 +1,31 @@
 import { Request, Response } from 'express'
-import { Messages } from '../models/users.model'
+import { Users } from '../models/users.model'
+import { Messages } from '../models/messages.model'
+import { sequelize } from '../database/sequelize'
 
 export const createMessage = async (req: Request, res: Response) => {
   const { user, message } = req.body
   if (!user || !message) return res.status(400).json({ ok: false, msg: 'Missing required fields.' })
-
+  
+  const transaction = await sequelize.transaction()
+  
   try {
-    const createdMessage = await Messages.create({ user, message })
-    if (!createdMessage) return res.status(500).json({ ok: false, msg: 'Error while creating message.' })
+    
+    const [createdUser, createdMessage] = await Promise.all([
+      Users.findOrCreate({ where: { username: user }, transaction }),
+      Messages.create({ username: user, content: message, transaction })
+    ])
+    
+    if (!createdUser || !createdMessage) {
+      await transaction.rollback()
+      return res.status(500).json({ ok: false, msg: 'Error while creating message.' })
+    }
+
+    await transaction.commit()
 
     res.status(201).json({ ok: true, msg: 'Message created' })
   } catch (error) {
+    await transaction.rollback()
     console.error(error)
     res.status(500).json({ ok: false, msg: 'Error while creating message.' })
   }
@@ -31,7 +46,7 @@ export const getMessage = async (req: Request, res: Response) => {
   }
 }
 
-export const getMessages = async (req: Request, res: Response) => {
+export const getMessages = async (_: Request, res: Response) => {
   try {
     const data = await Messages.findAll()
     if (!data) return res.status(404).json({ ok: false, msg: 'Messages not found.' })
