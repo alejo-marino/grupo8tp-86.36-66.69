@@ -29,7 +29,7 @@ export default class Server {
     app.use(express.json()) // To parse the incoming requests with JSON payloads
 
     // Set up Cors
-    const allowedOrigins = ['http://localhost:3000']
+    const allowedOrigins = ['http://localhost:3001']
 
     app.use(
       cors({

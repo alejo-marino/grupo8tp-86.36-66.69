@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { submitMessage } from '../services/messages'
 
-const backendUrl = process.env.REACT_APP_BACKEND_URL
-
 function MessageForm({ addMessage }) {
   const [formData, setFormData] = useState({ username: '', text: '' })
 
@@ -26,6 +24,8 @@ function MessageForm({ addMessage }) {
       // Send a POST request to the backend
       submitMessage(postData)
         .then((response) => {
+          if (!response) throw new Error('No response received')
+          console.log("RES: ", response)
           const serverResponse = response.json()
           console.log(serverResponse)
         })
