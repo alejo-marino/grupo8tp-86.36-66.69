@@ -25,12 +25,12 @@ function MessageForm({ addMessage }) {
       submitMessage(postData)
         .then((response) => {
           if (!response) throw new Error('No response received')
-          console.log("RES: ", response)
+          console.log('RES: ', response)
         })
         .then(() => {
           // Update frontend
-          addMessage({ username: formData.username, content: formData.text });
-          setFormData({ username: '', text: '' });
+          addMessage({ username: formData.username, content: formData.text })
+          setFormData({ username: '', text: '' })
         })
         .catch((error) => {
           console.error('Error sending the POST request:', error)
