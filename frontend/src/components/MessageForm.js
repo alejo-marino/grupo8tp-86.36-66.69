@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
+import Loader from './Loader'
 import { submitMessage } from '../services/messages'
 
 function MessageForm({ addMessage }) {
   const [formData, setFormData] = useState({ username: '', text: '' })
+  const [showLoader, setShowLoader] = useState(false)
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -21,6 +23,8 @@ function MessageForm({ addMessage }) {
         message: formData.text,
       }
 
+      setShowLoader(true)
+
       // Send a POST request to the backend
       submitMessage(postData)
         .then((response) => {
@@ -35,39 +39,43 @@ function MessageForm({ addMessage }) {
         .catch((error) => {
           console.error('Error sending the POST request:', error)
         })
+        .finally(() => setShowLoader(false))
     } else {
       alert('Please enter both username and message.')
     }
   }
 
   return (
-    <div className="message-form">
-      <form onSubmit={handleSubmit} className="form">
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          autoComplete="off"
-          value={formData.username}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="text"
-          placeholder="Message"
-          autoComplete="off"
-          value={formData.text}
-          onChange={handleChange}
-        />
-        <button
-          type="submit"
-          disabled={!formData.username || !formData.text}
-          className={formData.username && formData.text ? 'enabled' : ''}
-        >
-          Submit
-        </button>
-      </form>
-    </div>
+    <>
+      {showLoader && <Loader />}
+      <div className="message-form">
+        <form onSubmit={handleSubmit} className="form">
+          <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            autoComplete="off"
+            value={formData.username}
+            onChange={handleChange}
+          />
+          <input
+            type="text"
+            name="text"
+            placeholder="Message"
+            autoComplete="off"
+            value={formData.text}
+            onChange={handleChange}
+          />
+          <button
+            type="submit"
+            disabled={!formData.username || !formData.text}
+            className={formData.username && formData.text ? 'enabled' : ''}
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </>
   )
 }
 
