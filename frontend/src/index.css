@@ -1,7 +1,10 @@
 :root {
   --grey: #cccccc;
   --white: #ffffff;
-  --enabled-submit-btn: #2c55ac;
+  --blue: #2c55ac;
+  --background: #1a1a1a;
+  --scrollbar-track: #f1f1f1;
+  --dark-grey: #a9a9a9;
 }
 
 body {
@@ -12,6 +15,7 @@ body {
     'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--background);
 }
 
 code {
@@ -23,21 +27,26 @@ code {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
   margin-bottom: 30px;
 }
 
 .form input {
-  border: 2px solid var(--grey);
+  border: 2px solid var(--white);
   border-radius: 10px;
-  padding: 5px 10px;
+  padding: 8px 10px;
   width: 300px;
   font-size: 14px;
   outline: none;
+  background-color: var(--background);
+  color: var(--white);
+}
+
+.form input::placeholder {
+  color: var(--grey);
 }
 
 .form button {
-  border: 2px solid var(--grey);
   border-radius: 10px;
   padding: 8px 0;
   width: 300px;
@@ -51,10 +60,43 @@ code {
 }
 
 .form button.enabled {
-  background-color: var(--enabled-submit-btn);
+  background-color: var(--blue);
   cursor: pointer;
 }
 
 .m0 {
   margin: 0;
+}
+
+.title {
+  color: var(--white);
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+/* SCROLL BAR */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--grey);
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--dark-grey);
 }
