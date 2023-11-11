@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import { Users } from '../models/users.model'
 import { Messages } from '../models/messages.model'
 import { sequelize } from '../database/sequelize'
+import { QueryTypes } from 'sequelize'
 
 export const createMessage = async (req: Request, res: Response) => {
   const { user, message } = req.body
@@ -10,9 +11,17 @@ export const createMessage = async (req: Request, res: Response) => {
   const transaction = await sequelize.transaction()
 
   try {
+    // const [createdUser, createdMessage] = await Promise.all([
+    //   Users.findOrCreate({ where: { username: user }, transaction }),
+    //   Messages.create({ username: user, content: message, transaction }),
+    // ])
+
     const [createdUser, createdMessage] = await Promise.all([
       Users.findOrCreate({ where: { username: user }, transaction }),
-      Messages.create({ username: user, content: message, transaction }),
+      sequelize.query(`INSERT INTO messages (username, content) VALUES ('${user}', '${message}');`, {
+        type: QueryTypes.INSERT,
+        transaction,
+      }),
     ])
 
     if (!createdUser || !createdMessage) {
