@@ -58,6 +58,8 @@ export default class Server {
       next()
     })
 
+    this.app.disable('x-powered-by'); // Disable x-powered-by header for security reasons
+
     // Set up routes
     serverRoutes.forEach((route: Route) => {
       app.use(route.path, route.router)
