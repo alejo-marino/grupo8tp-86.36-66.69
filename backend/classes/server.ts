@@ -55,6 +55,7 @@ export default class Server {
       )
       res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
       res.header('Allow', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+      res.header('X-DNS-Prefetch-Control', 'off')
       next()
     })
 
