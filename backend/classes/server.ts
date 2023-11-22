@@ -56,6 +56,8 @@ export default class Server {
       res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
       res.header('Allow', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
       res.header('X-DNS-Prefetch-Control', 'off')
+      // No longer supported, only for old browsers that do not support CSP.
+      res.header('X-XSS-Protection', '1') // ; mode=block OR ; report=<report-uri>
       next()
     })
 
