@@ -55,8 +55,15 @@ export default class Server {
       )
       res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
       res.header('Allow', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+      res.header('X-DNS-Prefetch-Control', 'off')
+      // No longer supported, only for old browsers that do not support CSP.
+      res.header('X-XSS-Protection', '1') // ; mode=block OR ; report=<report-uri>
+      // Enable HSTS with a max-age of 1 year (in seconds), include subdomains, and preload
+      res.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
       next()
     })
+
+    this.app.disable('x-powered-by'); // Disable x-powered-by header for security reasons
 
     // Set up routes
     serverRoutes.forEach((route: Route) => {
