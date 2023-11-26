@@ -4,7 +4,6 @@ import MessageForm from './components/MessageForm'
 import Loader from './components/Loader'
 import { getMessages } from './services/messages'
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom'
-import HttpsRedirect from 'react-https-redirect'
 import './styles.css'
 
 function App() {
