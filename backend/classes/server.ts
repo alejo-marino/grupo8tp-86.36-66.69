@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express'
 import { sequelize } from '../database/sequelize'
 import { serverRoutes } from '../routes/serverRoutes'
 import { Route } from '../interfaces/server'
+const xFrameOptions = require('x-frame-options')
 
 export default class Server {
   public app: express.Application
@@ -62,6 +63,12 @@ export default class Server {
     })
 
     this.app.disable('x-powered-by'); // Disable x-powered-by header for security reasons
+
+    app.use(xFrameOptions())
+
+    app.get('/', function (_: Request, res: Response) { // Should be set up in Apache or Nginx
+      res.get('X-Frame-Options') // === 'Deny'
+    })
 
     // Set up routes
     serverRoutes.forEach((route: Route) => {
