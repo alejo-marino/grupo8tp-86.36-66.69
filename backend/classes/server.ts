@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express'
 import { sequelize } from '../database/sequelize'
 import { serverRoutes } from '../routes/serverRoutes'
 import { Route } from '../interfaces/server'
+const xFrameOptions = require('x-frame-options')
 
 export default class Server {
   public app: express.Application
@@ -55,7 +56,19 @@ export default class Server {
       )
       res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
       res.header('Allow', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
+      res.header('X-DNS-Prefetch-Control', 'off')
+      // No longer supported, only for old browsers that do not support CSP.
+      res.header('X-XSS-Protection', '1') // ; mode=block OR ; report=<report-uri>
       next()
+    })
+
+    this.app.disable('x-powered-by') // Disable x-powered-by header for security reasons
+
+    app.use(xFrameOptions())
+
+    app.get('/', function (_: Request, res: Response) {
+      // Should be set up in Apache or Nginx
+      res.get('X-Frame-Options') // === 'Deny'
     })
 
     // Set up routes
