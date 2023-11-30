@@ -62,11 +62,12 @@ export default class Server {
       next()
     })
 
-    this.app.disable('x-powered-by'); // Disable x-powered-by header for security reasons
+    this.app.disable('x-powered-by') // Disable x-powered-by header for security reasons
 
     app.use(xFrameOptions())
 
-    app.get('/', function (_: Request, res: Response) { // Should be set up in Apache or Nginx
+    app.get('/', function (_: Request, res: Response) {
+      // Should be set up in Apache or Nginx
       res.get('X-Frame-Options') // === 'Deny'
     })
 

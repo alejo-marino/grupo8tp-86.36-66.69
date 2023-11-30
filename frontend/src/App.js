@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import MessageList from './components/MessageList'
 import MessageForm from './components/MessageForm'
-import Loader from './components/Loader'
-import { getMessages } from './services/messages'
 import './styles.css'
+import Loader from './components/Loader'
+import BlogPostIframe from './components/BlogPostIframe'
+import { getMessages } from './services/messages'
+import { environment } from './environments/environment'
 
 function App() {
   const [messages, setMessages] = useState([])
@@ -31,6 +33,7 @@ function App() {
         <h1 className="title m0">Blog Post</h1>
         <MessageForm addMessage={addMessage} />
         <MessageList messages={messages} />
+        {environment.showIframe && <BlogPostIframe />}
       </div>
     </>
   )
