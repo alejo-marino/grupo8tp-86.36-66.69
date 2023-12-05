@@ -100,3 +100,12 @@ code {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--dark-grey);
 }
+
+.iframe {
+  width: 50vw;
+  height: 50vh;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
