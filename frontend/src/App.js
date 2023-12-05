@@ -27,7 +27,6 @@ function App() {
     setMessages([newMessage, ...messages])
   }
 
-
   return (
     <Router>
       <Routes>
@@ -38,9 +37,9 @@ function App() {
             <React.Fragment>
               {({ location }) => {
                 if (location.protocol === 'http:') {
-                  return <Navigate to={{ ...location, protocol: 'https:' }} />;
+                  return <Navigate to={{ ...location, protocol: 'https:' }} />
                 }
-                return null;
+                return null
               }}
             </React.Fragment>
           }
@@ -65,7 +64,7 @@ function App() {
         />
       </Routes>
     </Router>
-  );
+  )
 }
 
 export default App
