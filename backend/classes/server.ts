@@ -61,6 +61,7 @@ export default class Server {
       // Enable HSTS with a max-age of 1 year (in seconds), include subdomains, and preload
       res.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
       res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+      res.setHeader('Permission-Policy', 'microphone=(), camera=()');
       next()
     })
 
