@@ -59,6 +59,12 @@ export default class Server {
       res.header('X-DNS-Prefetch-Control', 'off')
       // No longer supported, only for old browsers that do not support CSP.
       res.header('X-XSS-Protection', '1') // ; mode=block OR ; report=<report-uri>
+
+      // Enable HSTS with a max-age of 1 year (in seconds), include subdomains, and preload
+      res.header('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+      res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+      res.setHeader('Permission-Policy', 'microphone=(), camera=()');
+
       next()
     })
 
@@ -70,6 +76,7 @@ export default class Server {
       // Should be set up in Apache or Nginx
       res.get('X-Frame-Options') // === 'Deny'
     })
+
 
     // Set up routes
     serverRoutes.forEach((route: Route) => {
